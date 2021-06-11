@@ -5,6 +5,8 @@ from .forms import CommentForm
 from .forms import ClientPostForm
 from django.shortcuts import render, get_object_or_404, redirect
 from . import models
+from django.contrib.auth.decorators import login_required
+
 # from django.views.generic import CreateView
 
 
@@ -23,6 +25,7 @@ class PostList(generic.ListView):
     paginate_by = 3
 
 
+@login_required()
 def post_detail(request, slug):
     template_name = "post_detail.html"
     post = get_object_or_404(models.Post, slug=slug)

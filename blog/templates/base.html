@@ -20,7 +20,16 @@
 
 <body>
 
-
+    <header>
+    {% if request.user.is_authenticated %}
+        Hi, {{ request.user}}
+        <a href="{% url "logout" %}"> Logout</a>
+{#        <a href="{% url "profile" %}"> Profile</a>#}
+    {% else %}
+        <a href="{% url "login" %}"> Login</a>
+{#        <a href="{% url "register" %}">Register</a>#}
+    {% endif %}
+    </header>
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light shadow" id="mainNav">
     <div class="container-fluid">
@@ -33,7 +42,6 @@
 
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-
          <li class="nav-item text-black">
             <a class="nav-link text-black font-weight-bold" href="{% url 'client_post' %}">Смотреть новости от пользователей </a>
           </li>

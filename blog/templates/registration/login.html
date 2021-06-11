@@ -1,0 +1,21 @@
+  
+{% extends "base.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block content %}
+    <h2>User login:</h2>
+    {% if form.errors %}
+        <p style="color: brown">BAD credentials</p>
+    {% endif %}
+    <form action="." method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        <input type="submit" value="Log in!">
+    </form>
+{#    <a href="{% url "lesson:password_reset" %}">Forgot your password?</a>#}
+{#    <a href="{% url "lesson:register" %}">Register?</a>#}
+{% endblock %}

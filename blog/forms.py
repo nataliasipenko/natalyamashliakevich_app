@@ -3,7 +3,6 @@ from .models import ClientPost
 from django import forms
 
 
-
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
@@ -14,4 +13,9 @@ class ClientPostForm(forms.ModelForm):
     class Meta:
         model = ClientPost
         fields = ('title', 'content', 'file', 'author')
+
+
+class LoginForm(forms.Form):
+    login = forms.CharField(max_length=25)
+    password = forms.CharField(max_length=25, widget=forms.PasswordInput)
 
