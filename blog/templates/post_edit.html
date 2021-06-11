@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Предложить новость</title>
+</head>
+<body>
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<header class="masthead">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class=" col-md-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h3 class=" site-heading my-4 mt-3 text-white"> Предложить новость  </h3>
+          <p class="text-light"> Пожалуйста, заполните форму ниже, чтобы поделится новостями. В случае, если сообщение удовлетворяет всем правилам, мы опубликуем его.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="contact-message">
+    <div class="container">
+        <div class="col-md-2"></div>
+            <div class="col-md-8 message-form">
+                <form action="" method="POST">
+                {% csrf_token %}
+                    <div class="form-group">
+                        <label for="exampleInputTitle1">Тема</label>
+                        <input type="title" name="title" class="form-control" id="exampleInputTitle1" placeholder="Пожалуйста, введите заголовок" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Новость</label>
+                        <textarea cols="30" name="content" rows='10' class="form-control" id="exampleInputPassword1" placeholder="Пожалуйста, сообщите, чем хотите поделится" required></textarea>
+
+
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputFile1">Вложения</label>
+                        <input type="file" name="file" class="form-control" id="exampleInputFile11" placeholder="Пожалуйста, прикрепите вложение" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputAuthor1">Автор</label>
+                        <input type="title" name="author" class="form-control" id="exampleInputAuthor1" placeholder="Пожалуйста, введите автора" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Отправить</button>
+            </form>
+            </div>
+        <div class="col-md-2"></div>
+    </div>
+</section>
+
+{% endblock content %}
+</body>
+</html>

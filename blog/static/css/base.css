@@ -1,0 +1,36 @@
+body {
+    font-family: "Roboto", sans-serif;
+    font-size: 17px;
+    background-color: #fdfdfd;
+}
+
+.shadow {
+    box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.1);
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: #b4ea52 ;
+    border-color: #b4ea52;
+}
+
+.masthead {
+    background: #704a83;
+    height: auto;
+    padding-bottom: 15px;
+    box-shadow: 0 16px 48px #E3E7EB;
+    padding-top: 10px;
+}
+
+.card {
+    box-shadow: 0 16px 48px #E3E7EB;
+}
+
+/* contact and post_edit page */
+.contact-message{
+    margin-top: 30px;
+    align-items: center;
+}
+.message-form{
+    margin: 0 auto;
+}
