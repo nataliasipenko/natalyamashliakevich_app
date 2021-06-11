@@ -36,6 +36,7 @@ urlpatterns = [
 
     path('profile/', views.view_profile, name='profile'),
     path('register/', views.register, name='register'),
+    path('edit_profile/', views.edit_profile, name='edit_profile'),
 
     path("client_post/", views.ClientPostList.as_view(), name="client_post"),
     path("<slug:slug>/", views.post_detail, name="post_detail"),

@@ -6,8 +6,10 @@ from .forms import ClientPostForm
 from django.shortcuts import render, get_object_or_404, redirect
 from . import models
 from django.contrib.auth.decorators import login_required
+
 from . import forms
 from django.http import HttpResponse
+from django.contrib.auth.models import User
 
 
 # from django.views.generic import CreateView
@@ -28,7 +30,7 @@ class PostList(generic.ListView):
     paginate_by = 3
 
 
-@login_required()
+@login_required
 def post_detail(request, slug):
     template_name = "post_detail.html"
     post = get_object_or_404(models.Post, slug=slug)
@@ -118,3 +120,32 @@ def register(request):
         user_form = forms.RegistrationForm()
         return render(request, 'registration/register_user.html',
                       {'form': user_form})
+
+
+@login_required
+def edit_profile(request):
+    if request.method == "POST":
+
+        user_form = forms.UserEditForm(request.POST,
+                                       instance=request.user)
+        profile_form = forms.ProfileEditForm(request.POST,
+                                             instance=request.user.profile,
+                                             files=request.FILES)
+
+        if profile_form.is_valid():
+            if user_form.is_valid():
+
+                if not profile_form.cleaned_data['photo']:
+                    profile_form.cleaned_data['photo'] = request.user.profile.photo
+                profile_form.save()
+                user_form.save()
+                return render(request, 'profile.html')
+
+    else:
+        user_form = forms.UserEditForm(request.POST,
+                                       instance=request.user)
+        profile_form = forms.ProfileEditForm(request.POST,
+                                             instance=request.user.profile)
+        return render(request,
+                      'edit_profile.html',
+                      {'user_form': user_form, 'profile_form': profile_form})

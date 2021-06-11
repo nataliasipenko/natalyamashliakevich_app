@@ -1,3 +1,4 @@
+from . import models
 from .models import Comment
 from .models import ClientPost
 from django import forms
@@ -35,3 +36,14 @@ class RegistrationForm(forms.ModelForm):
             raise forms.ValidationError("passwords aren't equal")
         return cd['password2']
 
+
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'email')
+
+
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = models.Profile
+        fields = ('birthday', 'photo')
