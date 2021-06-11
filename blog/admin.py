@@ -39,3 +39,4 @@ class PostAdmin(SummernoteModelAdmin):
 admin.site.register(models.Contactmessage)
 # admin.site.register(models.ClientPost)
 admin.site.register(models.Post, PostAdmin)
+admin.site.register(models.Profile)

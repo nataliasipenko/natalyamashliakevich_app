@@ -93,3 +93,8 @@ def contact(request):
 #     form = super(PostNewView, self).get_form(form_class)
 #     form.fields['content'].widget = SummernoteInplaceWidget()
 #     return form
+
+
+def view_profile(request):
+    return render(request,
+                  'profile.html')

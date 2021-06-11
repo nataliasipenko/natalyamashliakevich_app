@@ -34,6 +34,7 @@ urlpatterns = [
     ), name="password_reset_confirm"),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name="password_reset_complete"),
 
+    path('profile/', views.view_profile, name='profile'),
 
     path("client_post/", views.ClientPostList.as_view(), name="client_post"),
     path("<slug:slug>/", views.post_detail, name="post_detail"),
@@ -42,5 +43,7 @@ urlpatterns = [
 
 ]
 
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
