@@ -6,6 +6,9 @@ from .forms import ClientPostForm
 from django.shortcuts import render, get_object_or_404, redirect
 from . import models
 from django.contrib.auth.decorators import login_required
+from . import forms
+from django.http import HttpResponse
+
 
 # from django.views.generic import CreateView
 
@@ -54,6 +57,7 @@ def post_detail(request, slug):
         },
     )
 
+
 def new(request):
     if request.method == "POST":
         title = request.POST['title']
@@ -82,7 +86,6 @@ def contact(request):
                   context)
 
 
-
 # class PostNewView(CreateView):
 #     model = ClientPost
 #     form_class = ClientPostForm
@@ -94,7 +97,24 @@ def contact(request):
 #     form.fields['content'].widget = SummernoteInplaceWidget()
 #     return form
 
-
 def view_profile(request):
     return render(request,
                   'profile.html')
+
+
+def register(request):
+    if request.method == "POST":
+        user_form = forms.RegistrationForm(request.POST)
+        if user_form.is_valid():
+            new_user = user_form.save(commit=False)
+            new_user.set_password(user_form.cleaned_data['password'])
+            new_user.save()
+            models.Profile.objects.create(user=new_user, photo='unknown.jpg')
+            return render(request, 'registration/reg_complete.html',
+                          {'new_user': new_user})
+        else:
+            return HttpResponse('bad credentials')
+    else:
+        user_form = forms.RegistrationForm()
+        return render(request, 'registration/register_user.html',
+                      {'form': user_form})

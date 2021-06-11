@@ -1,0 +1,14 @@
+asgiref==3.3.4
+beautifulsoup4==4.9.3
+Django==3.2.4
+django-bootstrap4==3.0.1
+django-crispy-forms==1.11.2
+django-sitemaps==1.1.1
+django-summernote==0.8.11.6
+django-taggit==1.4.0
+lxml==4.6.3
+Pillow==8.2.0
+pytz==2021.1
+reverse==0.1.0
+soupsieve==2.2.1
+sqlparse==0.4.1
