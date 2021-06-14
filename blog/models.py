@@ -33,6 +33,12 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('post_detail',
+                       args=[self.publish.year,
+                             self.publish.month,
+                             self.publish.day,
+                             self.slug])
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
@@ -73,3 +79,22 @@ class Contactmessage(models.Model):
 
     def __str__(self):
         return self.email
+
+
+class Topic(models.Model):
+
+    title = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255)
+    note = models.TextField()
+
+    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    posts = models.ManyToManyField(Post, related_name='topics')
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('detail_topic',
+                       args=[self.slug, ])

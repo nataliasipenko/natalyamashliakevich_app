@@ -149,3 +149,19 @@ def edit_profile(request):
         return render(request,
                       'edit_profile.html',
                       {'user_form': user_form, 'profile_form': profile_form})
+
+
+def all_topics(request):
+    topic_list = models.Topic.objects.all()
+    return render(request,
+                  'all_topics.html',
+                  {'topics': topic_list})
+
+
+@login_required
+def topics_details(request, slug):
+    topic = get_object_or_404(models.Topic,
+                              slug=slug)
+    return render(request,
+                  'detail_topic.html',
+                  {'topic': topic})

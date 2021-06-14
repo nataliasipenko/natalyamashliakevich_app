@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ topic.title|truncatewords:3 }}
+{% endblock %}
+
+{% block content %}
+    <header class="masthead">
+        <div class="overlay"></div>
+            <div class="container">
+                 <div class="row">
+                    <div class=" col-md-8 col-md-10 mx-auto">
+                        <div class="site-heading">
+                            <h3 class=" site-heading my-4 mt-3 text-white"> Свяжитесь с нами  </h3>
+                            <em><a href="{% url "all_topics" %}">Вернуться к выбору темы новостей</a></em>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+    </header>
+
+    <a href="{% url "all_topics" %}">All lessons</a>
+    <h1>{{ topic.title}}</h1>
+    <p>
+        {{ topic.note|linebreaks }}
+    </p>
+    <h2>Новости по выбранной теме:</h2>
+    {% for post in topic.posts.all %}
+         <h2><a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h2>
+
+        <p>
+            Post author: {{ post.author }}. Published {{ post.publish }}
+        </p>
+        <p>
+            {{ post.body|truncatewords_html:5|linebreaks }}
+        </p>
+
+    {% endfor %}
+{% endblock %}

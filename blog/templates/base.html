@@ -42,8 +42,11 @@
 
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
+          <li class="nav-item text-black">
+            <a class="nav-link text-black font-weight-bold" href="{% url 'all_topics' %}"> Темы новостей </a>
+          </li>
          <li class="nav-item text-black">
-            <a class="nav-link text-black font-weight-bold" href="{% url 'client_post' %}">Смотреть новости от пользователей </a>
+            <a class="nav-link text-black font-weight-bold" href="{% url 'client_post' %}"> Новости от пользователей </a>
           </li>
           <li class="nav-item text-black">
             <a class="nav-link text-black font-weight-bold" href="{% url 'new' %}">Предложить новость</a>

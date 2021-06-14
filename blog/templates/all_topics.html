@@ -1,0 +1,45 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+    All topics
+{% endblock %}
+
+{% block content %}
+    <header class="masthead">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class=" col-md-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h3 class=" site-heading my-4 mt-3 text-white"> Темы (категории) новостей  </h3>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<section class="contact-message">
+    <div class="container">
+        <div class="col-md-2"></div>
+            <div class="col-md-8 message-form">
+
+    {% for topic in topics %}
+        <em><h2>{{ topic.title }}</h2>
+        <p>
+            {{ topic.note|truncatewords_html:5|linebreaks }}
+        </p>
+        <a href="{{ topic.get_absolute_url }}">Смотреть все новости по теме</a></em>
+    {% endfor %}
+                </div>
+        <div class="col-md-2"></div>
+    </div>
+</section>
+{% endblock %}
+
+
+{% block menu %}
+    {% for topic in topics %}
+        <a class="nav-link active" href="{{ topic.get_absolute_url }}">{{ topic.title }}</a>
+    {% endfor %}
+{% endblock %}
