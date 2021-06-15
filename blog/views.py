@@ -1,12 +1,9 @@
 from django.views import generic
-# from django_summernote.widgets import SummernoteInplaceWidget
-
 from .forms import CommentForm
-from .forms import ClientPostForm
 from django.shortcuts import render, get_object_or_404, redirect
 from . import models
 from django.contrib.auth.decorators import login_required
-
+from django.core.mail import send_mail
 from . import forms
 from django.http import HttpResponse
 from django.contrib.auth.models import User
@@ -16,7 +13,11 @@ from django.contrib.auth.models import User
 
 
 # Create your views here.
-# from .models import ClientPost
+
+BODY_TEMPLATE = (
+    '{title} at {uri} was recommended to you by {name}.\n\n'
+    'Comment: {comment}'
+)
 
 
 class ClientPostList(generic.ListView):
@@ -60,6 +61,43 @@ def post_detail(request, slug):
     )
 
 
+def _prepare_mail(post, cd, request):
+
+    uri = request.build_absolute_uri(post.get_absolute_url())
+    body = BODY_TEMPLATE.format(
+        title=post.title,
+        uri=uri,
+        name=cd['my_name'],
+        comment=cd['comment'],
+    )
+    subject = "{name} recommends you {title}".format(
+        name=cd['my_name'],
+        title=post.title,
+    )
+    return subject, body
+
+
+def share_post(request, slug):
+    post = get_object_or_404(models.Post, slug=slug)
+
+    sent = False
+    if request.method == "POST":
+        form = forms.EmailPostForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            subject, body = _prepare_mail(post, cd, request)
+            send_mail(subject, body, 'admin@supersite.com', (cd['to_email'], ))
+            sent = True
+    else:
+        form = forms.EmailPostForm()
+
+    return render(request,
+                  'share.html',
+                  {'form': form,
+                   'post': post,
+                   'sent': sent})
+
+
 def new(request):
     if request.method == "POST":
         title = request.POST['title']
@@ -87,17 +125,6 @@ def contact(request):
                   'contacts.html',
                   context)
 
-
-# class PostNewView(CreateView):
-#     model = ClientPost
-#     form_class = ClientPostForm
-#     template_name = "post_edit.html"
-#     fields = ['title', 'content', 'file']
-#
-# def get_form(self, form_class):
-#     form = super(PostNewView, self).get_form(form_class)
-#     form.fields['content'].widget = SummernoteInplaceWidget()
-#     return form
 
 def view_profile(request):
     return render(request,

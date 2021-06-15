@@ -23,7 +23,6 @@ class ClientPostAdmin(admin.ModelAdmin):
     search_fields = ['title', 'content', 'author']
     actions = ['approve_clientpost']
 
-
     def approve_clientpost(self, request, queryset):
         queryset.update(active=True)
 
@@ -37,7 +36,6 @@ class PostAdmin(SummernoteModelAdmin):
 
 
 admin.site.register(models.Contactmessage)
-# admin.site.register(models.ClientPost)
 admin.site.register(models.Post, PostAdmin)
 admin.site.register(models.Profile)
 admin.site.register(models.Topic)

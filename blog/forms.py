@@ -5,6 +5,12 @@ from django import forms
 from django.contrib.auth.models import User
 
 
+class EmailPostForm(forms.Form):
+    my_name = forms.CharField(max_length=20)
+    to_email = forms.EmailField()
+    comment = forms.CharField(widget=forms.Textarea)
+
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment

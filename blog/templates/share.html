@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <header class="masthead">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row">
+          <div class=" col-md-8 col-md-10 mx-auto">
+            <div class="site-heading">
+              <h3 class=" site-heading my-4 mt-3 text-white"> Share news! </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+
+    {% if sent %}
+        <p>Post "{{ post.title }}" has been sent</p>
+    {% else %}
+        <h2>Share post "{{ post.title }}" via email:</h2>
+        <form action="." method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input type="submit" value="SEND!">
+        </form>
+    {% endif %}
+{% endblock %}

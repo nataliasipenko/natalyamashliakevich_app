@@ -43,8 +43,9 @@ urlpatterns = [
 
     path("client_post/", views.ClientPostList.as_view(), name="client_post"),
     path("post-detial/<str:slug>/", views.post_detail, name="post_detail"),
+    path('post-detail/<str:slug>/share/', views.share_post,
+         name='share_post'),
 
-    # path("summernote/", include("django_summernote.urls")),
 
 ]
 

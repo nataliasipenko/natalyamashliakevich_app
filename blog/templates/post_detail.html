@@ -9,6 +9,7 @@
         <h1>{% block title %} {{ post.title }} {% endblock title %}</h1>
         <p class=" text-muted">{{ post.author }} | {{ post.created_on }}</p>
         <p class="card-text ">{{ post.content | safe }}</p>
+          <p> <a href="{% url "share_post" post.slug %}">share post</a> </p>
       </div>
     </div>
     {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
